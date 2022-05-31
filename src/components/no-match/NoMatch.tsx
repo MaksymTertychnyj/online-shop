@@ -1,5 +1,5 @@
 const NoMatch = () => {
-  return <div>No match</div>;
+  return <div>Page not found</div>;
 };
 
 export default NoMatch;
