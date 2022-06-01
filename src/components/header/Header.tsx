@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import image from "../../assets/images/background.jpg";
-import { Container, Jumbotron } from "react-bootstrap";
+import image from "../../assets/images/backgroung_fish.jpg";
+import { Container } from "react-bootstrap";
 
 export const Header = () => (
   <Styles>
@@ -19,7 +19,7 @@ const Styles = styled.div`
   .header {
     background: url(${image}) no-repeat fixed bottom;
     background-size: cover;
-    height: 130px;
+    height: 330px;
     position: relative;
     color: #ccc;
     z-index: -2;

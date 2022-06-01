@@ -29,10 +29,12 @@ export const NavigationBar = () => {
               </Nav.Item>
             </Nav>
             <Nav>
-              <Button className="mr-2" variant="primary" onClick={loginHandler}>
+              <Button className="mr-2" variant="secondary" onClick={loginHandler}>
                 LogIn
               </Button>
-              <Button variant="primary">Sign out</Button>
+              <Button variant="secondary" size="sm">
+                Register
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Layout>
