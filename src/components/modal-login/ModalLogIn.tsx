@@ -1,4 +1,4 @@
-import { Form, Modal, ModalBody, ModalTitle } from "react-bootstrap";
+import { Button, Form, Modal, ModalBody, ModalTitle } from "react-bootstrap";
 import { ModalLoginProps } from "./ModalLogInProps";
 
 const ModalLogIn = (props: ModalLoginProps) => {
@@ -26,6 +26,11 @@ const ModalLogIn = (props: ModalLoginProps) => {
           </Form.Group>
         </Form>
       </Modal.Body>
+      <Modal.Footer>
+        <Form.Group>
+          <Button variant="primary">Log In</Button>
+        </Form.Group>
+      </Modal.Footer>
     </Modal>
   );
 };
