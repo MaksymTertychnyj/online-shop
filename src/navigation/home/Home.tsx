@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import DepartmentItem from "../../components/department-item/DepartmentItem";
 import HomeContext from "./HomeContext";
 import ProductModel from "../../models/ProductModel";
+import DepartmentService from "../../api-service/department-service/DepartmentService";
 
 const Home = () => {
   const [currentDepartment, setCurrentDepartment] = useState<DepartmentModel>(null);
@@ -20,12 +21,10 @@ const Home = () => {
   const [departments, setDepartments] = useState<DepartmentModel[]>([]);
 
   useEffect(() => {
-    setDepartments(
-      Object.create([
-        { id: 1, name: "вудилища", targetType: 2 },
-        { id: 2, name: "катушки", targetType: 2 },
-      ])
-    );
+    DepartmentService.getAllDepartments().then((resp) => {
+      setDepartments(resp.data);
+      setCurrentDepartment(resp.data[0]);
+    });
   }, []);
 
   return (
