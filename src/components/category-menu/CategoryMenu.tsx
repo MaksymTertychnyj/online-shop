@@ -1,23 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import styled from "styled-components";
+import CategoryService from "../../api-service/category-service/CategoryService";
 import CategoryModel from "../../models/CategoryModel";
 import HomeContext from "../../navigation/home/HomeContext";
 import CategoryItem from "./CategoryItem";
 
 const CategoryMenu = () => {
-  const { currentDepartment } = useContext(HomeContext);
+  const { currentDepartment, setCurrentCategory } = useContext(HomeContext);
   const [categories, setCategories] = useState<CategoryModel[]>([]);
 
   useEffect(() => {
-    setCategories(
-      Object.create([
-        { id: 1, name: "спіннінгові", targetType: 1, departmentId: 1 },
-        { id: 2, name: "карпові", targetType: 1, departmentId: 1 },
-        { id: 3, name: "поплавкові", targetType: 1, departmentId: 1 },
-        { id: 4, name: "фідери", targetType: 1, departmentId: 1 },
-      ])
-    );
+    CategoryService.getCategoriesByDepartment(currentDepartment?.id!).then((resp) => {
+      setCategories(resp.data);
+      setCurrentCategory(null);
+    });
   }, [currentDepartment]);
 
   return (
