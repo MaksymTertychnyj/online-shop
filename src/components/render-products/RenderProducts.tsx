@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Card, CardGroup, Container, Row } from "react-bootstrap";
+import { Card, CardGroup, Col, Container, Row } from "react-bootstrap";
 import ProductService from "../../api-service/product-service/ProductService";
 import DepartmentModel from "../../models/DepartmentModel";
 import ProductModel from "../../models/ProductModel";
@@ -11,9 +11,11 @@ const RenderProducts = () => {
   const { currentCategory, setCurrentProduct, currentDepartment } = useContext(HomeContext);
 
   useEffect(() => {
-    ProductService.getProductsByCategory(currentCategory?.id!).then((resp) => {
-      setProducts(resp.data);
-    });
+    if (currentCategory) {
+      ProductService.getProductsByCategory(currentCategory?.id!).then((resp) => {
+        setProducts(resp.data);
+      });
+    }
   }, [currentCategory]);
 
   useEffect(() => {
@@ -21,13 +23,13 @@ const RenderProducts = () => {
   }, [currentDepartment]);
 
   return (
-    <>
+    <Col sm={7}>
       <Row xs={1} md={4} className="g-4">
         {products.map((p, i) => (
           <RenderProductItem key={i} product={p} />
         ))}
       </Row>
-    </>
+    </Col>
   );
 };
 

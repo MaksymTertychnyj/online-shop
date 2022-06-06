@@ -12,8 +12,6 @@ import DataModel from "../../models/DataModel";
 const RenderProductItem = (prop: RenderProductItemProps) => {
   const [imagePath, setImagePath] = useState("");
   const [properties, setProperties] = useState<DataModel[]>([]);
-  //const [widthCol, setWidthCol] = useState(0);
-  let widthCol: number;
   let jsonString: any = {};
 
   const renderPopover = (props: any) => {
@@ -45,7 +43,6 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
         properties.push({ name: key, value: jsonString[key] });
       }
     });
-    console.log(properties);
   }, [prop.product]);
 
   return (

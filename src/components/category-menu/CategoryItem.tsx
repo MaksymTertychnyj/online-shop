@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import CategoryModel from "../../models/CategoryModel";
 import HomeContext from "../../navigation/home/HomeContext";
@@ -17,18 +18,20 @@ const CategoryItem = (props: CategoryItemProps) => {
   }, [currentCategory]);
 
   return (
-    <tr
-      onClick={onClickHandler}
-      style={{
-        textAlign: "center",
-        height: "40px",
-        backgroundColor: color,
-        color: "#52595D",
-        cursor: "pointer",
-      }}
-    >
-      {props.category?.name}
-    </tr>
+    <Row>
+      <Col
+        onClick={onClickHandler}
+        style={{
+          textAlign: "center",
+          height: "40px",
+          backgroundColor: color,
+          color: "#52595D",
+          cursor: "pointer",
+        }}
+      >
+        {props.category?.name}
+      </Col>
+    </Row>
   );
 };
 

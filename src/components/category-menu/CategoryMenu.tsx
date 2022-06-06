@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import styled from "styled-components";
 import CategoryService from "../../api-service/category-service/CategoryService";
 import CategoryModel from "../../models/CategoryModel";
@@ -11,27 +11,36 @@ const CategoryMenu = () => {
   const [categories, setCategories] = useState<CategoryModel[]>([]);
 
   useEffect(() => {
-    CategoryService.getCategoriesByDepartment(currentDepartment?.id!).then((resp) => {
-      setCategories(resp.data);
-      setCurrentCategory(null);
-    });
+    if (currentDepartment) {
+      CategoryService.getCategoriesByDepartment(currentDepartment?.id!).then((resp) => {
+        setCategories(resp.data);
+        setCurrentCategory(null);
+      });
+    }
   }, [currentDepartment]);
 
   return (
-    <Container>
-      <Table striped bordered borderless hover>
-        <thead style={{ backgroundColor: "#00A36C", height: 30 }}>
-          <tr style={{ fontWeight: "bold", textAlign: "center", color: "white" }}>
-            {currentDepartment?.name}
-          </tr>
-        </thead>
-        <tbody>
+    <Col sm={3}>
+      <Row style={{ height: 30, width: "100%" }}>
+        <Col
+          style={{
+            backgroundColor: "#00A36C",
+            fontWeight: "bold",
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          {currentDepartment?.name}
+        </Col>
+      </Row>
+      <Row style={{ width: "100%" }}>
+        <Col>
           {categories.map((c, i) => (
             <CategoryItem key={i} category={c} />
           ))}
-        </tbody>
-      </Table>
-    </Container>
+        </Col>
+      </Row>
+    </Col>
   );
 };
 

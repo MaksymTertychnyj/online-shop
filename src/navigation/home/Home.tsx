@@ -48,12 +48,8 @@ const Home = () => {
             </div>
             <Container style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
               <Row>
-                <Col sm={3}>
-                  <CategoryMenu />
-                </Col>
-                <Col sm={7}>
-                  <RenderProducts />
-                </Col>
+                <CategoryMenu />
+                <RenderProducts />
                 <Col sm={2}></Col>
               </Row>
             </Container>
