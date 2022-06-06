@@ -1,9 +1,45 @@
+import { useContext, useRef, useState } from "react";
 import { Button, Form, Modal, ModalBody, ModalTitle } from "react-bootstrap";
+import LoginService from "../../api-service/login-service/LoginService";
+import { StatusCodes } from "../../constants/StatusCodes";
+import UserAuthenticateRequest from "../../models/user/UserAuthenticateRequest";
+import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
+import AuthManager from "../auth/AuthManager";
 import { ModalLoginProps } from "./ModalLogInProps";
 
 const ModalLogIn = (props: ModalLoginProps) => {
+  const { setIsLogged } = useContext(LoginProviderContext);
+  const [message, setMessage] = useState<string>("");
+  const inputLogin = useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
+  const inputPassword = useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
+
   const closeHandler = () => {
+    setMessage("");
     props.closeModal(false);
+  };
+
+  const loginHandler = () => {
+    let request: UserAuthenticateRequest = {
+      Login: inputLogin.current.value,
+      Password: inputPassword.current.value,
+    };
+    LoginService.loginUser(request)
+      .then((resp) => {
+        if (resp.status === StatusCodes.OK) {
+          AuthManager.signInAsync(resp.data);
+          setIsLogged(true);
+          setMessage("");
+          closeHandler();
+        }
+      })
+      .catch((reason) => {
+        if (reason.code === "ERR_BAD_REQUEST") {
+          setMessage(reason.response.data["message"]);
+        }
+        if (reason.code === "ERR_NETWORK") {
+          setMessage(reason.message);
+        }
+      });
   };
 
   return (
@@ -15,20 +51,29 @@ const ModalLogIn = (props: ModalLoginProps) => {
         <Form>
           <Form.Group>
             <Form.Label>Login</Form.Label>
-            <Form.Control type="text" placeholder="Enter your login please ..." />
+            <Form.Control ref={inputLogin} type="text" placeholder="Enter your login please ..." />
           </Form.Group>
           <Form.Group controlId="fromBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter your password please ..." />
+            <Form.Control
+              ref={inputPassword}
+              type="password"
+              placeholder="Enter your password please ..."
+            />
           </Form.Group>
           <Form.Group controlId="fromBasicCheckbox">
             <Form.Check type="checkbox" label="Remember me" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Text style={{ color: "red" }}>{message}</Form.Text>
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Form.Group>
-          <Button variant="primary">Log In</Button>
+          <Button onClick={loginHandler} variant="primary">
+            Log In
+          </Button>
         </Form.Group>
       </Modal.Footer>
     </Modal>
