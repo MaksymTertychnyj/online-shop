@@ -1,15 +1,32 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Nav, Navbar, NavbarBrand } from "react-bootstrap";
 import styled from "styled-components";
+import UserAuthenticateModel from "../../models/user/UserAuthenticateModel";
+import User from "../../models/user/UserModel";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
+import AuthManager from "../auth/AuthManager";
 import Layout from "../Layout";
 
 export const NavigationBar = () => {
-  const { setShowModal } = useContext(LoginProviderContext);
+  const { setShowModal, isLogged, setIsLogged } = useContext(LoginProviderContext);
+  const [user, setUser] = useState<User | null>(null);
 
   const loginHandler = () => {
     setShowModal(true);
   };
+
+  const logoutHandler = () => {
+    AuthManager.signOutAsync();
+    setIsLogged(false);
+  };
+
+  const registerHandler = () => {};
+
+  useEffect(() => {
+    if (isLogged) {
+      AuthManager.getUser().then((resp) => (resp ? setUser(JSON.parse(resp)) : {}));
+    }
+  }, [isLogged]);
 
   return (
     <Styles>
@@ -29,12 +46,33 @@ export const NavigationBar = () => {
               </Nav.Item>
             </Nav>
             <Nav>
-              <Button className="mr-2" variant="secondary" onClick={loginHandler}>
-                LogIn
-              </Button>
-              <Button variant="secondary" size="sm">
-                Register
-              </Button>
+              {isLogged ? (
+                <>
+                  <div
+                    style={{
+                      paddingRight: 50,
+                      color: "#dcdcdc",
+                      fontSize: 12,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <div>{user?.firstName}</div>
+                    <div>{user?.lastName}</div>
+                  </div>
+                  <Button className="mr-2" variant="secondary" onClick={logoutHandler}>
+                    "Log Out"
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button className="mr-2" variant="secondary" onClick={loginHandler}>
+                    "Log In"
+                  </Button>
+                  <Button variant="secondary" size="sm" onClick={registerHandler}>
+                    Register
+                  </Button>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Layout>
@@ -55,5 +93,9 @@ const Styles = styled.div`
     $:hover {
       color: white;
     }
+  }
+
+  .text {
+    color: #dcdcdc;
   }
 `;
