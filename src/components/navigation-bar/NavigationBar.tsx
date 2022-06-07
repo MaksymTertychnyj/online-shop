@@ -28,10 +28,13 @@ export const NavigationBar = () => {
   const registerHandler = () => {};
 
   useEffect(() => {
-    if (isLogged) {
-      AuthManager.getUser().then((resp) => (resp ? setUser(JSON.parse(resp)) : {}));
-    }
-  }, [isLogged]);
+    AuthManager.getUser().then((resp) => {
+      if (resp) {
+        setUser(JSON.parse(resp));
+        setIsLogged(true);
+      }
+    });
+  }, []);
 
   return (
     <Styles>
