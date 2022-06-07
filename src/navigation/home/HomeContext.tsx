@@ -13,9 +13,17 @@ const HomeContext = createContext({
   currentDepartment: department,
   currentCategory: category,
   currentProduct: product,
+  searchPriceUp: 1,
+  searchPriceTo: 1,
+  searchName: "",
+  maxPrice: 0,
   setCurrentDepartment: (department: DepartmentModel) => returnType,
   setCurrentCategory: (category: CategoryModel) => returnType,
   setCurrentProduct: (product: ProductModel) => returnType,
+  setSearchPriceUp: (price: number) => returnType,
+  setSearchPriceTo: (price: number) => returnType,
+  setSearchName: (name: string) => returnType,
+  setMaxPrice: (price: number) => returnType,
 });
 
 export default HomeContext;

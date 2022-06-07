@@ -20,8 +20,10 @@ const CategoryItem = (props: CategoryItemProps) => {
   return (
     <Row>
       <Col
+        className="border-top border-secondary"
         onClick={onClickHandler}
         style={{
+          width: "100%",
           textAlign: "center",
           height: "40px",
           backgroundColor: color,

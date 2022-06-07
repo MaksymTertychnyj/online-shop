@@ -4,29 +4,25 @@ import { Button, Card, CardImg, Col, OverlayTrigger, Popover, Row, Tooltip } fro
 import ImageService from "../../api-service/imageService/ImageService";
 import TargetTypes from "../../models/TargetTypes";
 import { useContext, useEffect, useState } from "react";
-import ImageModel from "../../models/image/ImageModel";
-import HomeContext from "../../navigation/home/HomeContext";
 import Styles from "./Styles";
 import DataModel from "../../models/DataModel";
 
 const RenderProductItem = (prop: RenderProductItemProps) => {
   const [imagePath, setImagePath] = useState("");
   const [properties, setProperties] = useState<DataModel[]>([]);
-  let jsonString: any = {};
+  let jsonProperties: any = {};
 
   const renderPopover = (props: any) => {
     return (
       <Popover className={Styles.popover} {...props}>
         {properties.map((p, i) => {
           return (
-            <>
-              <Row>
-                <Col md={8} style={{ fontWeight: "bold" }}>
-                  {p?.name}:
-                </Col>
-                <Col md={4}>{p?.value}</Col>
-              </Row>
-            </>
+            <Row>
+              <Col md={8} style={{ fontWeight: "bold" }}>
+                {p?.name}:
+              </Col>
+              <Col md={4}>{p?.value}</Col>
+            </Row>
           );
         })}
       </Popover>
@@ -38,9 +34,9 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
       setImagePath(resp.data);
 
       properties.length = 0;
-      jsonString = JSON.parse(prop.product?.jsonParameters!);
-      for (let key in jsonString) {
-        properties.push({ name: key, value: jsonString[key] });
+      jsonProperties = JSON.parse(prop.product!.jsonParameters);
+      for (let key in jsonProperties) {
+        properties.push({ name: key, value: jsonProperties[key] });
       }
     });
   }, [prop.product]);
@@ -48,7 +44,7 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
   return (
     <>
       <OverlayTrigger placement="right" delay={{ show: 350, hide: 400 }} overlay={renderPopover}>
-        <Card border="warning" style={{ margin: 10 }}>
+        <Card border="warning" style={{ marginTop: 25, marginLeft: 20 }}>
           <Card.Img className={Styles.image} variant="top" src={imagePath} />
           <Card.Body className={Styles.body}>
             <Card.Title>

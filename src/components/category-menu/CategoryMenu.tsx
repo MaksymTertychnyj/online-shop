@@ -20,9 +20,10 @@ const CategoryMenu = () => {
   }, [currentDepartment]);
 
   return (
-    <Col sm={3}>
-      <Row style={{ height: 30, width: "100%" }}>
+    <Col sm={2}>
+      <Row style={{ height: 30 }}>
         <Col
+          className="border border-success"
           style={{
             backgroundColor: "#00A36C",
             fontWeight: "bold",
@@ -33,8 +34,8 @@ const CategoryMenu = () => {
           {currentDepartment?.name}
         </Col>
       </Row>
-      <Row style={{ width: "100%" }}>
-        <Col>
+      <Row>
+        <Col className="border border-success">
           {categories.map((c, i) => (
             <CategoryItem key={i} category={c} />
           ))}

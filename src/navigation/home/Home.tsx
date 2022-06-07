@@ -13,12 +13,17 @@ import DepartmentItem from "../../components/department-item/DepartmentItem";
 import HomeContext from "./HomeContext";
 import ProductModel from "../../models/ProductModel";
 import DepartmentService from "../../api-service/department-service/DepartmentService";
+import RightBar from "../../components/right-bar-home/RightBar";
 
 const Home = () => {
   const [currentDepartment, setCurrentDepartment] = useState<DepartmentModel>(null);
   const [currentCategory, setCurrentCategory] = useState<CategoryModel>(null);
   const [currentProduct, setCurrentProduct] = useState<ProductModel>(null);
   const [departments, setDepartments] = useState<DepartmentModel[]>([]);
+  const [searchPriceUp, setSearchPriceUp] = useState(0);
+  const [searchPriceTo, setSearchPriceTo] = useState(0);
+  const [searchName, setSearchName] = useState("");
+  const [maxPrice, setMaxPrice] = useState(0);
 
   useEffect(() => {
     DepartmentService.getAllDepartments().then((resp) => {
@@ -34,9 +39,17 @@ const Home = () => {
           currentDepartment,
           currentCategory,
           currentProduct,
+          searchPriceUp: searchPriceUp,
+          searchPriceTo: searchPriceTo,
+          searchName,
+          maxPrice,
           setCurrentDepartment,
           setCurrentCategory,
           setCurrentProduct,
+          setSearchPriceUp: setSearchPriceUp,
+          setSearchPriceTo: setSearchPriceTo,
+          setSearchName: setSearchName,
+          setMaxPrice: setMaxPrice,
         }}
       >
         <Tab.Container transition={false} defaultActiveKey="fishingrod">
@@ -50,7 +63,7 @@ const Home = () => {
               <Row>
                 <CategoryMenu />
                 <RenderProducts />
-                <Col sm={2}></Col>
+                <RightBar />
               </Row>
             </Container>
           </Styles>
