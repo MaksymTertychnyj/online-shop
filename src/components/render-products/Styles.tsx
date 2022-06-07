@@ -40,6 +40,11 @@ const Styles = {
     //height: 100,
     paddingLeft: 10,
   }),
+
+  tooltip: style({
+    backgroundColor: "white",
+    color: "black",
+  }),
 };
 
 export default Styles;
