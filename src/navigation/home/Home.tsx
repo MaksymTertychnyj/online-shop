@@ -1,7 +1,6 @@
 import "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Nav, Navbar, Row, Tab } from "react-bootstrap";
-import CardProduct from "../../components/card-product/CardProduct";
 import styled from "styled-components";
 import CategoryMenu from "../../components/category-menu/CategoryMenu";
 import CategoryModel from "../../models/CategoryModel";

@@ -13,6 +13,7 @@ const Styles = {
     fontSize: 13,
     color: "white",
     textOverflow: "ellipsis",
+    cursor: "default",
   }),
 
   buttonRightSide: style({
@@ -22,6 +23,7 @@ const Styles = {
     borderBottomRightRadius: 4,
     fontSize: 13,
     color: "white",
+    cursor: "pointer",
   }),
 
   textButton: style({

@@ -1,14 +1,19 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Button, Nav, Navbar, NavbarBrand } from "react-bootstrap";
+import { Button, Col, Nav, Navbar, NavbarBrand, Row } from "react-bootstrap";
 import styled from "styled-components";
 import UserAuthenticateModel from "../../models/user/UserAuthenticateModel";
 import User from "../../models/user/UserModel";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
 import AuthManager from "../auth/AuthManager";
 import Layout from "../Layout";
+import Image from "react-bootstrap/Image";
+import NavigationBarStyles from "./NavigationBarStyles";
+import CustomerBagContext from "../customer-bag/CustomerBagContext";
+import { Link } from "react-router-dom";
 
 export const NavigationBar = () => {
   const { setShowModal, isLogged, setIsLogged } = useContext(LoginProviderContext);
+  const { customerAmount } = useContext(CustomerBagContext);
   const [user, setUser] = useState<User | null>(null);
 
   const loginHandler = () => {
@@ -48,24 +53,38 @@ export const NavigationBar = () => {
             <Nav>
               {isLogged ? (
                 <>
-                  <div
+                  <Col
                     style={{
-                      paddingRight: 50,
+                      paddingRight: 25,
                       color: "#dcdcdc",
-                      fontSize: 12,
+                      fontSize: 11,
                       fontWeight: "bold",
                     }}
                   >
-                    <div>{user?.firstName}</div>
-                    <div>{user?.lastName}</div>
-                  </div>
-                  <Button className="mr-2" variant="secondary" onClick={logoutHandler}>
-                    "Log Out"
-                  </Button>
+                    <Row>{user?.firstName}</Row>
+                    <Row>{user?.lastName}</Row>
+                  </Col>
+                  <Col className={NavigationBarStyles.bagButton}>
+                    <Link to="bag">
+                      <Image
+                        className={NavigationBarStyles.image}
+                        src={require("../../assets/images/icons/shopping-bag-icon.jpg")}
+                      />
+                    </Link>
+                  </Col>
+                  <Col className={NavigationBarStyles.bagPrice}>
+                    <div>{customerAmount}</div>
+                    <div style={{ color: "white", fontSize: 9 }}>UAH</div>
+                  </Col>
+                  <Col>
+                    <Button className="mr-2" variant="secondary" size="sm" onClick={logoutHandler}>
+                      Out
+                    </Button>
+                  </Col>
                 </>
               ) : (
                 <>
-                  <Button className="mr-2" variant="secondary" onClick={loginHandler}>
+                  <Button className="mr-2" variant="secondary" size="sm" onClick={loginHandler}>
                     "Log In"
                   </Button>
                   <Button variant="secondary" size="sm" onClick={registerHandler}>
