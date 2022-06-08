@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 export const NavigationBar = () => {
   const { setShowModal, isLogged, setIsLogged } = useContext(LoginProviderContext);
-  const { customerAmount } = useContext(CustomerBagContext);
+  const { customerAmount, setCustomerAmount, setCustomerProducts } = useContext(CustomerBagContext);
   const [user, setUser] = useState<User | null>(null);
 
   const loginHandler = () => {
@@ -21,6 +21,8 @@ export const NavigationBar = () => {
 
   const logoutHandler = () => {
     AuthManager.signOutAsync();
+    setCustomerAmount(0);
+    setCustomerProducts([]);
     setIsLogged(false);
   };
 
