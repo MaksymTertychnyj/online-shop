@@ -12,6 +12,7 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
   const [imagePath, setImagePath] = useState("");
   const [properties] = useState<DataModel[]>([]);
   const [isAdded, setIsAdded] = useState(false);
+  const [productId, setProductId] = useState(0);
   const { customerProducts, customerAmount, setCustomerAmount } = useContext(CustomerBagContext);
   let jsonProperties: any = {};
 
@@ -29,10 +30,11 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
       });
     }
     setIsAdded(true);
+    setProductId(prop.product!.id);
   };
 
   const renderPopoverButton = (props: any) => {
-    if (isAdded) {
+    if (isAdded && productId === prop.product?.id) {
       return (
         <Popover className={Styles.tooltip} {...props}>
           <Row style={{ marginLeft: 5, marginRight: 5 }}>was added to bag</Row>
