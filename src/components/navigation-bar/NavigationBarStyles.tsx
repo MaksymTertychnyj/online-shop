@@ -15,6 +15,11 @@ const NavigationBarStyles = {
     fontSize: 10,
     color: "red",
   }),
+
+  link: style({
+    color: "#dcdcdc",
+    marginLeft: 20,
+  }),
 };
 
 export default NavigationBarStyles;

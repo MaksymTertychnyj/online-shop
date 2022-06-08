@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Col, Nav, Navbar, NavbarBrand, Row } from "react-bootstrap";
 import styled from "styled-components";
-import UserAuthenticateModel from "../../models/user/UserAuthenticateModel";
 import User from "../../models/user/UserModel";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
 import AuthManager from "../auth/AuthManager";
@@ -44,13 +43,19 @@ export const NavigationBar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Item>
-                <Nav.Link href="/">Home</Nav.Link>
+                <Link className={NavigationBarStyles.link} to="/">
+                  Home
+                </Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="/about">About</Nav.Link>
+                <Link className={NavigationBarStyles.link} to="/about">
+                  About
+                </Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="/contacts">Contacts</Nav.Link>
+                <Link className={NavigationBarStyles.link} to="/contacts">
+                  Contacts
+                </Link>
               </Nav.Item>
             </Nav>
             <Nav>
