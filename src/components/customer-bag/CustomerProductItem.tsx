@@ -27,6 +27,8 @@ const CustomerProductItem = (props: CustomerProductProps) => {
     }
   };
 
+  useEffect(() => {}, [customerAmount]);
+
   return (
     <Container>
       <Row>
