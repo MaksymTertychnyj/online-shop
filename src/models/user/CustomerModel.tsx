@@ -1,10 +1,11 @@
-type User = null | {
+type Customer = null | {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber: string;
+  address: string;
   login: string;
   password: string;
-  role: string;
 };
 
-export default User;
+export default Customer;
