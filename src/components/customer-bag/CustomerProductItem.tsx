@@ -10,11 +10,10 @@ export interface CustomerProductProps {
 
 const CustomerProductItem = (props: CustomerProductProps) => {
   const inputQuantity = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
-  const [quantity, setQuantity] = useState(props.product!.quantity);
   const { customerAmount, setCustomerAmount } = useContext(CustomerBagContext);
 
   const getAmount = (): number => {
-    return props.product!.price * quantity;
+    return props.product!.price * props.product!.quantity;
   };
 
   const onChangeQuantity = () => {
@@ -22,10 +21,14 @@ const CustomerProductItem = (props: CustomerProductProps) => {
     if (q < 0) {
       inputQuantity.current.value = "0";
     } else {
-      setCustomerAmount(customerAmount + (q - quantity) * props.product!.price);
-      setQuantity(q);
+      setCustomerAmount(customerAmount + (q - props.product!.quantity) * props.product!.price);
+      props.product!.quantity = q;
     }
   };
+
+  useEffect(() => {
+    inputQuantity.current.value = props.product!.quantity.toString();
+  }, []);
 
   useEffect(() => {}, [customerAmount]);
 

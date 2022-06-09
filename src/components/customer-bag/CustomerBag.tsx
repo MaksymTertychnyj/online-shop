@@ -1,20 +1,33 @@
 import { useContext, useEffect, useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import User from "../../models/user/UserModel";
 import AuthManager from "../auth/AuthManager";
 import CustomerBagContext from "./CustomerBagContext";
 import CustomerProductItem from "./CustomerProductItem";
 import Styles from "./Styles";
+import { useNavigate } from "react-router-dom";
 
 const CustomerBag = () => {
   const [user, setUser] = useState<User | null>(null);
   const { customerProducts, customerAmount } = useContext(CustomerBagContext);
+  const [disabledButton, setDisabledButton] = useState(true);
+  const navigate = useNavigate();
+
+  const putItAnOrder = () => {
+    console.log(customerProducts);
+  };
 
   useEffect(() => {
     AuthManager.getUser().then((resp) => setUser(JSON.parse(resp!)));
   }, []);
 
-  useEffect(() => {}, [customerAmount]);
+  useEffect(() => {
+    if (customerAmount > 0) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  }, [customerAmount]);
 
   return (
     <Container>
@@ -107,6 +120,23 @@ const CustomerBag = () => {
               <label className={Styles.textHeader} style={{ paddingLeft: 5 }}>
                 UAH
               </label>
+            </Col>
+          </Row>
+          <Row style={{ paddingTop: 15 }}>
+            <Col sm={4}>
+              <Button size="sm" variant="secondary" onClick={() => navigate(-1)}>
+                Go back
+              </Button>
+            </Col>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <Button
+                size="sm"
+                variant={"success"}
+                disabled={disabledButton}
+                onClick={putItAnOrder}
+              >
+                Put in
+              </Button>
             </Col>
           </Row>
         </Col>
