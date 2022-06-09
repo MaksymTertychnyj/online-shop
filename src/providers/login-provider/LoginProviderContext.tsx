@@ -3,7 +3,8 @@ import React, { createContext } from "react";
 const returnType: any = {};
 
 const LoginProviderContext = createContext({
-  setShowModal: (state: boolean) => returnType,
+  setShowModalLogin: (state: boolean) => returnType,
+  setShowModalRegister: (state: boolean) => returnType,
   isLogged: false,
   setIsLogged: (state: boolean) => returnType,
 });

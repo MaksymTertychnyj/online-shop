@@ -11,12 +11,13 @@ import CustomerBagContext from "../customer-bag/CustomerBagContext";
 import { Link } from "react-router-dom";
 
 export const NavigationBar = () => {
-  const { setShowModal, isLogged, setIsLogged } = useContext(LoginProviderContext);
+  const { setShowModalLogin, setShowModalRegister, isLogged, setIsLogged } =
+    useContext(LoginProviderContext);
   const { customerAmount, setCustomerAmount, setCustomerProducts } = useContext(CustomerBagContext);
   const [user, setUser] = useState<User | null>(null);
 
   const loginHandler = () => {
-    setShowModal(true);
+    setShowModalLogin(true);
   };
 
   const logoutHandler = () => {
@@ -26,16 +27,17 @@ export const NavigationBar = () => {
     setIsLogged(false);
   };
 
-  const registerHandler = () => {};
+  const registerHandler = () => {
+    setShowModalRegister(true);
+  };
 
   useEffect(() => {
     AuthManager.getUser().then((resp) => {
       if (resp) {
         setUser(JSON.parse(resp));
-        setIsLogged(true);
       }
     });
-  }, []);
+  }, [isLogged]);
 
   return (
     <Styles>
@@ -63,17 +65,19 @@ export const NavigationBar = () => {
             <Nav>
               {isLogged ? (
                 <>
-                  <Col
-                    style={{
-                      paddingRight: 25,
-                      color: "#dcdcdc",
-                      fontSize: 11,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    <Row>{user?.firstName}</Row>
-                    <Row>{user?.lastName}</Row>
-                  </Col>
+                  <Link to="customerCabinet">
+                    <Col
+                      style={{
+                        paddingRight: 25,
+                        color: "#dcdcdc",
+                        fontSize: 11,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      <Row>{user?.firstName}</Row>
+                      <Row>{user?.lastName}</Row>
+                    </Col>
+                  </Link>
                   <Col className={NavigationBarStyles.bagButton}>
                     <Link to="bag">
                       <Image
