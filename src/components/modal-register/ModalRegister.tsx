@@ -6,6 +6,10 @@ import Styles from "./Styles";
 import PhoneInput from "react-phone-number-input/input";
 import { formatPhoneNumber, formatPhoneNumberIntl } from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/core";
+import LoginService from "../../api-service/login-service/LoginService";
+import CustomerModel from "../../models/user/CustomerModel";
+import AuthManager from "../auth/AuthManager";
+import { StatusCodes } from "../../constants/StatusCodes";
 
 const ModalRegister = (props: ModalRegisterProps) => {
   const { setIsLogged } = useContext(LoginProviderContext);
@@ -13,6 +17,7 @@ const ModalRegister = (props: ModalRegisterProps) => {
   const inputLastName = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputEmail = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputPhoneNumber = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
+  const inputAddress = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputLogin = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputPassword = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputConfirmPassword = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
@@ -22,21 +27,21 @@ const ModalRegister = (props: ModalRegisterProps) => {
   const onChangePhoneNumber = () => {
     if (inputPhoneNumber.current.value.length < 11) {
       if (inputPhoneNumber.current.value.length === 10) {
-        let ph = inputPhoneNumber.current.value;
+        let ph: string = inputPhoneNumber.current.value.toString();
         ph =
-          "+38" +
-          "(" +
+          `+38` +
+          `(` +
           ph.substring(0, 3) +
-          ")" +
-          "-" +
+          `)` +
+          `-` +
           ph.substring(3, 6) +
-          "-" +
+          `-` +
           ph.substring(6, 8) +
-          "-" +
+          `-` +
           ph.substring(8, 10);
-        console.log(ph);
 
-        setPhoneValue(formatPhoneNumber("+1" + inputPhoneNumber.current.value));
+        console.log(ph);
+        setPhoneValue(ph);
       }
       setPhoneValue(inputPhoneNumber.current.value);
     }
@@ -46,7 +51,26 @@ const ModalRegister = (props: ModalRegisterProps) => {
     props.closeModal(false);
   };
 
-  const registerHandler = () => {};
+  const registerHandler = () => {
+    if (inputPassword.current.value === inputConfirmPassword.current.value) {
+      let customer: CustomerModel = {
+        firstName: inputFirstName.current.value,
+        lastName: inputLastName.current.value,
+        email: inputEmail.current.value,
+        phoneNumber: phoneValue,
+        address: "",
+        login: inputLogin.current.value,
+        password: inputPassword.current.value,
+      };
+      LoginService.registerCustomer(customer).then((res) => {
+        if (res.status === StatusCodes.OK) {
+          AuthManager.signInAsync(res.data);
+          setIsLogged(true);
+          closeHandler();
+        }
+      });
+    }
+  };
 
   return (
     <Modal show={props.visible} onHide={closeHandler}>

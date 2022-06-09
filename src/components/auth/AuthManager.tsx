@@ -1,8 +1,8 @@
-import UserAuthenticateModel from "../../models/user/UserAuthenticateModel";
+import CustomerAuthenticateModel from "../../models/user/CustomerAuthenticateModel";
 
 const AuthManager = {
-  signInAsync: async (user: UserAuthenticateModel) => {
-    sessionStorage.setItem("user", JSON.stringify(user));
+  signInAsync: async (customer: CustomerAuthenticateModel) => {
+    sessionStorage.setItem("user", JSON.stringify(customer));
   },
 
   signOutAsync: async () => {

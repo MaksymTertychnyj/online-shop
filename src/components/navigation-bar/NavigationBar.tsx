@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Col, Nav, Navbar, NavbarBrand, Row } from "react-bootstrap";
 import styled from "styled-components";
-import User from "../../models/user/UserModel";
+import Customer from "../../models/user/CustomerModel";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
 import AuthManager from "../auth/AuthManager";
 import Layout from "../Layout";
@@ -14,7 +14,7 @@ export const NavigationBar = () => {
   const { setShowModalLogin, setShowModalRegister, isLogged, setIsLogged } =
     useContext(LoginProviderContext);
   const { customerAmount, setCustomerAmount, setCustomerProducts } = useContext(CustomerBagContext);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Customer | null>(null);
 
   const loginHandler = () => {
     setShowModalLogin(true);

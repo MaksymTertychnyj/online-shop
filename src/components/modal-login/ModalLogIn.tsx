@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { Button, Form, Modal, ModalBody, ModalTitle } from "react-bootstrap";
 import LoginService from "../../api-service/login-service/LoginService";
 import { StatusCodes } from "../../constants/StatusCodes";
-import UserAuthenticateRequest from "../../models/user/UserAuthenticateRequest";
+import CustomerAuthenticateRequest from "../../models/user/CustomerAuthenticateRequest";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
 import AuthManager from "../auth/AuthManager";
 import { ModalLoginProps } from "./ModalLogInProps";
@@ -19,11 +19,11 @@ const ModalLogIn = (props: ModalLoginProps) => {
   };
 
   const loginHandler = () => {
-    let request: UserAuthenticateRequest = {
+    let request: CustomerAuthenticateRequest = {
       Login: inputLogin.current.value,
       Password: inputPassword.current.value,
     };
-    LoginService.loginUser(request)
+    LoginService.loginCustomer(request)
       .then((resp) => {
         if (resp.status === StatusCodes.OK) {
           AuthManager.signInAsync(resp.data);

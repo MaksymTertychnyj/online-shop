@@ -1,17 +1,17 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import AuthManager from "../components/auth/AuthManager";
 import { StatusCodes } from "../constants/StatusCodes";
-import UserAuthenticateModel from "../models/user/UserAuthenticateModel";
+import CustomerAuthenticateModel from "../models/user/CustomerAuthenticateModel";
 
 const Axios = axios.create({ timeout: 20000 });
 
 Axios.interceptors.request.use(
   async (req: any) => {
-    let user: UserAuthenticateModel;
+    let user: any;
     await AuthManager.getUser().then((resp) => {
       if (resp) {
         user = JSON.parse(resp);
-        req.headers.Authorization = "Bearer " + user?.token;
+        req.headers.Authorization = "Bearer " + user["token"];
       }
     });
 

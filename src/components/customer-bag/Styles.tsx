@@ -7,7 +7,7 @@ const Styles = {
   }),
 
   body: style({
-    height: 200,
+    height: 250,
     fontSize: 13,
     fontWeight: "bold",
   }),
