@@ -20,10 +20,19 @@ const RenderProducts = () => {
     setMaxPrice,
   } = useContext(HomeContext);
 
+  const checkSearchPriceTo = (priceTo: number) => {
+    return new Promise((resolve: (val: number) => void) => {
+      if (priceTo === 0) {
+        resolve(maxPrice);
+      }
+    });
+  };
+
   const checkSearchParams = (product: ProductModel): boolean => {
-    if (searchPriceTo === 0) {
-      setSearchPriceTo(maxPrice);
-    }
+    checkSearchPriceTo(searchPriceTo).then((res) => {
+      setSearchPriceTo(res);
+    });
+
     if (
       product &&
       (product.name.startsWith(searchName.toUpperCase()) || searchName === "") &&
@@ -40,6 +49,7 @@ const RenderProducts = () => {
       ProductService.getProductsByCategory(currentCategory.id).then((resp) => {
         setProducts(resp.data);
         setMaxPrice(0);
+        setSearchPriceTo(0);
       });
     }
   }, [currentCategory]);
@@ -47,6 +57,7 @@ const RenderProducts = () => {
   useEffect(() => {
     setProducts([]);
     setMaxPrice(0);
+    setSearchPriceTo(0);
   }, [currentDepartment]);
 
   useEffect(() => {}, [searchPriceUp, searchPriceTo]);
