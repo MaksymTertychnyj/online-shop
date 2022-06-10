@@ -34,7 +34,9 @@ export const NavigationBar = () => {
   useEffect(() => {
     AuthManager.getUser().then((resp) => {
       if (resp) {
-        setUser(JSON.parse(resp));
+        let u: any = JSON.parse(resp);
+        setUser(u["customer"]);
+        setIsLogged(true);
       }
     });
   }, [isLogged]);
@@ -78,14 +80,14 @@ export const NavigationBar = () => {
                       <Row>{user?.lastName}</Row>
                     </Col>
                   </Link>
-                  <Col className={NavigationBarStyles.bagButton}>
-                    <Link to="bag">
+                  <Link to="bag">
+                    <Col className={NavigationBarStyles.bagButton}>
                       <Image
                         className={NavigationBarStyles.image}
                         src={require("../../assets/images/icons/shopping-bag-icon.jpg")}
                       />
-                    </Link>
-                  </Col>
+                    </Col>
+                  </Link>
                   <Col className={NavigationBarStyles.bagPrice}>
                     <div>{customerAmount}</div>
                     <div style={{ color: "white", fontSize: 9 }}>UAH</div>
