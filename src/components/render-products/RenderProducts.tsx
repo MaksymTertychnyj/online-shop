@@ -35,7 +35,7 @@ const RenderProducts = () => {
 
     if (
       product &&
-      (product.name.startsWith(searchName.toUpperCase()) || searchName === "") &&
+      (product.name.toLowerCase().startsWith(searchName) || searchName === "") &&
       product.price >= searchPriceUp &&
       product.price <= searchPriceTo
     )
