@@ -1,33 +1,118 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import User from "../../models/user/UserModel";
+import CustomerModel from "../../models/user/CustomerModel";
 import AuthManager from "../auth/AuthManager";
 import CustomerBagContext from "./CustomerBagContext";
-import CustomerProductItem from "./CustomerProductItem";
 import Styles from "./Styles";
 import { useNavigate } from "react-router-dom";
+import OrderCarousel from "./order-carousel/OrderCarousel";
 
 const CustomerBag = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const { customerProducts, customerAmount } = useContext(CustomerBagContext);
-  const [disabledButton, setDisabledButton] = useState(true);
+  const [user, setUser] = useState<CustomerModel | null>(null);
+  const { customerAmount } = useContext(CustomerBagContext);
+  const [disabledButtonPut, setDisabledButtonPut] = useState(true);
+  const [disabledButtonNext, setDisabledButtonNext] = useState(false);
   const navigate = useNavigate();
+  const [indexStep, setIndexStep] = useState(0);
 
-  const putItAnOrder = () => {
-    console.log(customerProducts);
+  /* const putItAnOrder = () => {
+    let order: OrderModel = {
+      id: 0,
+      orderStatus: OrderStatus.registered,
+      orderAddress: {
+        id: 0,
+        country: inputCountry.current.value,
+        region: inputRegion.current.value,
+        city: inputCity.current.value,
+        place: inputPlace.current.value,
+      },
+      customerLogin: user!.login,
+      products: customerProducts,
+    };
+    OrderService.confirmOrder(order).then((res) => {
+      if (res.status === StatusCodes.OK) {
+        alert("Your order was registered!");
+        navigate(-1);
+        setCustomerProducts([]);
+        setCustomerAmount(0);
+      } else {
+        alert("Unfortunately your order was not registered");
+      }
+    });
+  }; */
+
+  const onBack = () => {
+    if (indexStep === 0) {
+      navigate(-1);
+    } else {
+      setIndexStep(indexStep - 1);
+    }
+  };
+
+  const onNext = () => {
+    if (indexStep === 2) {
+    } else {
+      setIndexStep(indexStep + 1);
+    }
   };
 
   useEffect(() => {
-    AuthManager.getUser().then((resp) => setUser(JSON.parse(resp!)));
+    AuthManager.getUser().then((resp) => {
+      if (resp) {
+        let u: any = JSON.parse(resp!);
+        setUser(u["customer"]);
+      }
+    });
   }, []);
 
   useEffect(() => {
-    if (customerAmount > 0) {
-      setDisabledButton(false);
+    if (customerAmount > 0 && indexStep === 2) {
+      setDisabledButtonPut(false);
+      setDisabledButtonNext(true);
     } else {
-      setDisabledButton(true);
+      setDisabledButtonPut(true);
+      customerAmount > 0 ? setDisabledButtonNext(false) : setDisabledButtonNext(true);
     }
-  }, [customerAmount]);
+  }, [customerAmount, indexStep]);
+
+  /* const deleteOrder = () => {
+    OrderService.deleteOrder(15)
+      .then((res) => {
+        if (res.status === StatusCodes.OK) {
+          alert("your order was deleted");
+        } else {
+          alert("your order was not deleted");
+        }
+      })
+      .catch((rej) => alert(rej.response.data["message"]));
+  }; */
+
+  /* const updateOrder = () => {
+    OrderService.getOrdersByCustomer("maxim").then((res) => {
+      if (res.status === StatusCodes.OK) {
+        let order: OrderModel = res.data[0];
+        if (order) {
+          order.orderAddress = {
+            id: order.orderAddress!.id,
+            country: "Ukraine",
+            region: "Zakarpattja",
+            city: "Beregove",
+            place: "Secheny",
+          };
+        }
+        console.log(order);
+        OrderService.updateOrder(order).then((res) => {
+          if (res.status === StatusCodes.OK) {
+            alert("your order was updated");
+            console.log(order?.orderStatus);
+          } else {
+            alert("your order was not updated");
+          }
+        });
+      } else {
+      }
+    });
+  }; */
 
   return (
     <Container>
@@ -58,59 +143,16 @@ const CustomerBag = () => {
                   Email: <Row className={Styles.bodyItem}>{user?.email}</Row>
                 </Col>
               </Row>
+              <Row style={{ marginTop: 5 }}>
+                <Col>
+                  Phone number: <Row className={Styles.bodyItem}>{user?.phoneNumber}</Row>
+                </Col>
+              </Row>
             </Card.Body>
           </Card>
         </Col>
         <Col sm={6} style={{ alignContent: "center" }}>
-          <Row>
-            <Container>
-              <Row className={Styles.textHeader}>
-                <Col>Your order</Col>
-              </Row>
-              <Row style={{ paddingTop: 10 }}>
-                <Col
-                  className="border"
-                  style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
-                  sm={2}
-                >
-                  №
-                </Col>
-                <Col
-                  className="border"
-                  sm={3}
-                  style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
-                >
-                  Name
-                </Col>
-                <Col
-                  className="border"
-                  sm={2}
-                  style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
-                >
-                  Price
-                </Col>
-                <Col
-                  className="border"
-                  sm={2}
-                  style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
-                >
-                  Quantity
-                </Col>
-                <Col
-                  className="border"
-                  sm={3}
-                  style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
-                >
-                  Amount
-                </Col>
-              </Row>
-            </Container>
-          </Row>
-          <Row>
-            {customerProducts.map((p, i) => {
-              return <CustomerProductItem key={i} product={p} index={i + 1} />;
-            })}
-          </Row>
+          <OrderCarousel index={indexStep} />
           <Row style={{ paddingTop: 10 }}>
             <Col sm={1} className={Styles.textHeader}>
               All:
@@ -124,23 +166,27 @@ const CustomerBag = () => {
           </Row>
           <Row style={{ paddingTop: 15 }}>
             <Col sm={4}>
-              <Button size="sm" variant="secondary" onClick={() => navigate(-1)}>
-                Go back
+              <Button size="sm" variant="secondary" onClick={onBack}>
+                back
               </Button>
             </Col>
-            <Col sm={{ span: 4, offset: 4 }}>
+            <Col sm={4}>
               <Button
                 size="sm"
                 variant={"success"}
-                disabled={disabledButton}
-                onClick={putItAnOrder}
+                disabled={disabledButtonPut}
+                //onClick={putItAnOrder}
               >
                 Put in
               </Button>
             </Col>
+            <Col sm={4}>
+              <Button size="sm" variant={"success"} disabled={disabledButtonNext} onClick={onNext}>
+                next
+              </Button>
+            </Col>
           </Row>
         </Col>
-        <Col sm={3}></Col>
       </Row>
     </Container>
   );

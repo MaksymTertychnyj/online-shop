@@ -4,6 +4,7 @@ const Styles = {
   container: style({
     alignItems: "center",
     marginBottom: 20,
+    fontSize: 12,
   }),
 
   body: style({
@@ -28,6 +29,18 @@ const Styles = {
     fontSize: 12,
     fontWeight: "bold",
     textAlign: "center",
+  }),
+
+  label: style({
+    fontSize: 11,
+    color: "grey",
+  }),
+
+  input: style({
+    width: 180,
+    height: 25,
+    fontSize: 13,
+    textOverflow: "ellipsis",
   }),
 };
 export default Styles;
