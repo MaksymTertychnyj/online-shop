@@ -50,8 +50,7 @@ const CustomerBag = () => {
   };
 
   const onNext = () => {
-    if (indexStep === 2) {
-    } else {
+    if (indexStep !== 2) {
       setIndexStep(indexStep + 1);
     }
   };
@@ -59,7 +58,7 @@ const CustomerBag = () => {
   useEffect(() => {
     AuthManager.getUser().then((resp) => {
       if (resp) {
-        let u: any = JSON.parse(resp!);
+        let u: any = JSON.parse(resp);
         setUser(u["customer"]);
       }
     });
@@ -74,45 +73,6 @@ const CustomerBag = () => {
       customerAmount > 0 ? setDisabledButtonNext(false) : setDisabledButtonNext(true);
     }
   }, [customerAmount, indexStep]);
-
-  /* const deleteOrder = () => {
-    OrderService.deleteOrder(15)
-      .then((res) => {
-        if (res.status === StatusCodes.OK) {
-          alert("your order was deleted");
-        } else {
-          alert("your order was not deleted");
-        }
-      })
-      .catch((rej) => alert(rej.response.data["message"]));
-  }; */
-
-  /* const updateOrder = () => {
-    OrderService.getOrdersByCustomer("maxim").then((res) => {
-      if (res.status === StatusCodes.OK) {
-        let order: OrderModel = res.data[0];
-        if (order) {
-          order.orderAddress = {
-            id: order.orderAddress!.id,
-            country: "Ukraine",
-            region: "Zakarpattja",
-            city: "Beregove",
-            place: "Secheny",
-          };
-        }
-        console.log(order);
-        OrderService.updateOrder(order).then((res) => {
-          if (res.status === StatusCodes.OK) {
-            alert("your order was updated");
-            console.log(order?.orderStatus);
-          } else {
-            alert("your order was not updated");
-          }
-        });
-      } else {
-      }
-    });
-  }; */
 
   return (
     <Container>
