@@ -6,7 +6,7 @@ import TargetTypes from "../../models/TargetTypes";
 import { Fragment, useContext, useEffect, useState } from "react";
 import Styles from "./Styles";
 import DataModel from "../../models/DataModel";
-import CustomerBagContext from "../customer-bag/CustomerBagContext";
+import CustomerBagContext from "../../providers/customer-bag-provider/CustomerBagContext";
 
 const RenderProductItem = (prop: RenderProductItemProps) => {
   const [imagePath, setImagePath] = useState("");

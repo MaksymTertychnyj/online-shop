@@ -1,7 +1,7 @@
 import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import ProductModel from "../../models/ProductModel";
-import CustomerBagContext from "./CustomerBagContext";
+import CustomerBagContext from "../../providers/customer-bag-provider/CustomerBagContext";
 
 export interface CustomerProductProps {
   product: ProductModel;

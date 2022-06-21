@@ -1,45 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import CustomerModel from "../../models/user/CustomerModel";
-import AuthManager from "../auth/AuthManager";
-import CustomerBagContext from "./CustomerBagContext";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import CustomerBagContext from "../../providers/customer-bag-provider/CustomerBagContext";
 import Styles from "./Styles";
 import { useNavigate } from "react-router-dom";
 import OrderCarousel from "./order-carousel/OrderCarousel";
+import AvatarBag from "./AvatarBag";
+import OrderModel from "../../models/order/OrderModel";
+import OrderStatus from "../../models/OrderStatus";
+import Customer from "../../models/user/CustomerModel";
+import AuthManager from "../auth/AuthManager";
+import OrderService from "../../api-service/order-service/OrderService";
 
 const CustomerBag = () => {
-  const [user, setUser] = useState<CustomerModel | null>(null);
-  const { customerAmount } = useContext(CustomerBagContext);
+  const {
+    customerAmount,
+    addressDescription,
+    customerProducts,
+    orderAddress,
+    setAddressDescription,
+    setCustomerProducts,
+    setCustomerAmount,
+  } = useContext(CustomerBagContext);
   const [disabledButtonPut, setDisabledButtonPut] = useState(true);
   const [disabledButtonNext, setDisabledButtonNext] = useState(false);
   const navigate = useNavigate();
   const [indexStep, setIndexStep] = useState(0);
-
-  /* const putItAnOrder = () => {
-    let order: OrderModel = {
-      id: 0,
-      orderStatus: OrderStatus.registered,
-      orderAddress: {
-        id: 0,
-        country: inputCountry.current.value,
-        region: inputRegion.current.value,
-        city: inputCity.current.value,
-        place: inputPlace.current.value,
-      },
-      customerLogin: user!.login,
-      products: customerProducts,
-    };
-    OrderService.confirmOrder(order).then((res) => {
-      if (res.status === StatusCodes.OK) {
-        alert("Your order was registered!");
-        navigate(-1);
-        setCustomerProducts([]);
-        setCustomerAmount(0);
-      } else {
-        alert("Unfortunately your order was not registered");
-      }
-    });
-  }; */
+  const [user, setUser] = useState<Customer | null>(null);
 
   const onBack = () => {
     if (indexStep === 0) {
@@ -50,9 +36,33 @@ const CustomerBag = () => {
   };
 
   const onNext = () => {
-    if (indexStep !== 2) {
+    if (indexStep !== 1) {
       setIndexStep(indexStep + 1);
     }
+  };
+
+  const putItAnOrder = () => {
+    let order: OrderModel = {
+      orderStatus: OrderStatus.negotiation,
+      orderAddress: orderAddress,
+      customerLogin: user?.login!,
+      products: customerProducts,
+    };
+
+    OrderService.confirmOrder(order)
+      .then(() => {
+        setCustomerProducts([]);
+        setAddressDescription("");
+        setCustomerAmount(0);
+        setDisabledButtonPut(true);
+        alert("Your order was confirmed.");
+        if (indexStep === 0) {
+          navigate(-1);
+        } else {
+          setIndexStep(indexStep - 2);
+        }
+      })
+      .catch(() => alert("Your order was not confirmed."));
   };
 
   useEffect(() => {
@@ -65,51 +75,20 @@ const CustomerBag = () => {
   }, []);
 
   useEffect(() => {
-    if (customerAmount > 0 && indexStep === 2) {
-      setDisabledButtonPut(false);
+    if (customerAmount > 0 && indexStep === 1) {
       setDisabledButtonNext(true);
+      addressDescription ? setDisabledButtonPut(false) : setDisabledButtonPut(true);
     } else {
-      setDisabledButtonPut(true);
       customerAmount > 0 ? setDisabledButtonNext(false) : setDisabledButtonNext(true);
     }
-  }, [customerAmount, indexStep]);
+  }, [customerAmount, indexStep, addressDescription]);
 
   return (
     <Container>
       <br />
       <Row>
         <Col sm={3}>
-          <Card border="warning" className={Styles.container}>
-            <Card.Img
-              className={Styles.image}
-              variant="top"
-              src={require("../../assets/images/icons/user.png")}
-            />
-            <Card.Body className={Styles.body}>
-              <p>{user?.login}</p>
-              <Row style={{ marginTop: 5 }}>
-                <Col>
-                  First name:
-                  <Row className={Styles.bodyItem}>{user?.firstName}</Row>
-                </Col>
-              </Row>
-              <Row style={{ marginTop: 5 }}>
-                <Col>
-                  Last name: <Row className={Styles.bodyItem}>{user?.lastName}</Row>
-                </Col>
-              </Row>
-              <Row style={{ marginTop: 5 }}>
-                <Col>
-                  Email: <Row className={Styles.bodyItem}>{user?.email}</Row>
-                </Col>
-              </Row>
-              <Row style={{ marginTop: 5 }}>
-                <Col>
-                  Phone number: <Row className={Styles.bodyItem}>{user?.phoneNumber}</Row>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
+          <AvatarBag />
         </Col>
         <Col sm={6} style={{ alignContent: "center" }}>
           <OrderCarousel index={indexStep} />
@@ -124,9 +103,9 @@ const CustomerBag = () => {
               </label>
             </Col>
           </Row>
-          <Row style={{ paddingTop: 15 }}>
+          <Row style={{ paddingTop: 15, paddingBottom: 20 }}>
             <Col sm={4}>
-              <Button size="sm" variant="secondary" onClick={onBack}>
+              <Button size="sm" variant="info" onClick={onBack}>
                 back
               </Button>
             </Col>
@@ -135,13 +114,13 @@ const CustomerBag = () => {
                 size="sm"
                 variant={"success"}
                 disabled={disabledButtonPut}
-                //onClick={putItAnOrder}
+                onClick={putItAnOrder}
               >
                 Put in
               </Button>
             </Col>
             <Col sm={4}>
-              <Button size="sm" variant={"success"} disabled={disabledButtonNext} onClick={onNext}>
+              <Button size="sm" variant={"info"} disabled={disabledButtonNext} onClick={onNext}>
                 next
               </Button>
             </Col>

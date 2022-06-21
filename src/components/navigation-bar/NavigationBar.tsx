@@ -7,7 +7,7 @@ import AuthManager from "../auth/AuthManager";
 import Layout from "../Layout";
 import Image from "react-bootstrap/Image";
 import NavigationBarStyles from "./NavigationBarStyles";
-import CustomerBagContext from "../customer-bag/CustomerBagContext";
+import CustomerBagContext from "../../providers/customer-bag-provider/CustomerBagContext";
 import { Link } from "react-router-dom";
 
 export const NavigationBar = () => {
