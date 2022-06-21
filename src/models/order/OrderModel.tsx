@@ -1,12 +1,11 @@
-import ProductModel from "../ProductModel";
-import OrderAddressModel from "./OrderAddressModel";
+import AddressModel from "./Address/AddressModel";
+import OrderProductModel from "./OrderProductModel";
 
 type OrderModel = null | {
-  id: number;
   orderStatus: number;
-  orderAddress: OrderAddressModel;
+  orderAddress: AddressModel;
   customerLogin: string;
-  products: ProductModel[];
+  products: OrderProductModel[];
 };
 
 export default OrderModel;

@@ -6,7 +6,6 @@ import CategoryMenu from "../../components/category-menu/CategoryMenu";
 import CategoryModel from "../../models/CategoryModel";
 import DepartmentModel from "../../models/DepartmentModel";
 import RenderProducts from "../../components/render-products/RenderProducts";
-import { eventNames } from "process";
 import { useEffect, useState } from "react";
 import DepartmentItem from "../../components/department-item/DepartmentItem";
 import HomeContext from "./HomeContext";
