@@ -1,12 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import RoutesApp from "./navigation/routes/RoutesApp";
+import CustomerBagProvider from "./providers/customer-bag-provider/CustomerBagProvider";
 import LoginProvider from "./providers/login-provider/LoginProvider";
 
 const App = () => {
   return (
     <>
       <LoginProvider>
-        <RoutesApp />
+        <CustomerBagProvider>
+          <RoutesApp />
+        </CustomerBagProvider>
       </LoginProvider>
     </>
   );

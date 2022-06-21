@@ -1,11 +1,16 @@
 import { Carousel, Container, Row } from "react-bootstrap";
-import AddressItem from "./AddressItem";
-import OrderItem from "./OrderItem";
+import AddressItem from "./carousel-items/AddressItem";
+import OrderItem from "./carousel-items/OrderItem";
 
 const OrderCarousel = ({ index }: any) => {
   return (
     <>
-      <Carousel style={{ marginTop: 20 }} activeIndex={index} interval={null} indicators={false}>
+      <Carousel
+        style={{ marginBottom: 20, height: 320, overflow: "auto" }}
+        activeIndex={index}
+        interval={null}
+        indicators={false}
+      >
         <Carousel.Item>
           <Container>
             <OrderItem />
@@ -13,9 +18,6 @@ const OrderCarousel = ({ index }: any) => {
         </Carousel.Item>
         <Carousel.Item>
           <AddressItem />
-        </Carousel.Item>
-        <Carousel.Item>
-          <p>choose variant pay</p>
         </Carousel.Item>
       </Carousel>
       <Row></Row>

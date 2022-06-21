@@ -42,5 +42,11 @@ const Styles = {
     fontSize: 13,
     textOverflow: "ellipsis",
   }),
+
+  textFooter: style({
+    marginLeft: 20,
+    fontSize: 13,
+    color: "grey",
+  }),
 };
 export default Styles;

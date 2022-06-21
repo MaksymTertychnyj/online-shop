@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import CustomerBagContext from "../CustomerBagContext";
-import CustomerProductItem from "../CustomerProductItem";
-import Styles from "../Styles";
+import CustomerBagContext from "../../../../providers/customer-bag-provider/CustomerBagContext";
+import CustomerProductItem from "../../CustomerProductItem";
+import Styles from "../../Styles";
 
 const OrderItem = () => {
   const { customerProducts } = useContext(CustomerBagContext);
