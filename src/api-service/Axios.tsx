@@ -12,6 +12,7 @@ Axios.interceptors.request.use(
       if (resp) {
         user = JSON.parse(resp);
         req.headers.Authorization = "Bearer " + user["token"];
+        req.headers.Visitor = "customer";
       }
     });
 
