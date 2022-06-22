@@ -1,8 +1,11 @@
+import OrderStatus from "../OrderStatus";
 import AddressModel from "./Address/AddressModel";
 import OrderProductModel from "./OrderProductModel";
 
 type OrderModel = null | {
-  orderStatus: number;
+  dateRegister: Date;
+  status: OrderStatus;
+  amount: number;
   orderAddress: AddressModel;
   customerLogin: string;
   products: OrderProductModel[];
