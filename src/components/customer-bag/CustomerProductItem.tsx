@@ -34,17 +34,17 @@ const CustomerProductItem = (props: CustomerProductProps) => {
 
   return (
     <Container>
-      <Row>
-        <Col className="border" style={{ textAlign: "center", fontSize: 13 }} sm={2}>
+      <Row style={{ textAlign: "center", fontSize: 13 }}>
+        <Col className="border" sm={2}>
           {props.index}
         </Col>
-        <Col className="border" style={{ textAlign: "center", fontSize: 13 }} sm={3}>
+        <Col className="border" sm={3}>
           {props.product?.name}
         </Col>
-        <Col className="border" style={{ textAlign: "center", fontSize: 13 }} sm={2}>
+        <Col className="border" sm={2}>
           {props.product?.price}
         </Col>
-        <Col className="border" style={{ textAlign: "center", fontSize: 13 }} sm={2}>
+        <Col className="border" sm={2}>
           <Form.Control
             ref={inputQuantity}
             style={{ height: 25, fontSize: 13, border: 0 }}
@@ -53,7 +53,7 @@ const CustomerProductItem = (props: CustomerProductProps) => {
             onChange={onChangeQuantity}
           />
         </Col>
-        <Col className="border" style={{ textAlign: "center", fontSize: 13 }} sm={3}>
+        <Col className="border" sm={3}>
           {getAmount()}
         </Col>
       </Row>

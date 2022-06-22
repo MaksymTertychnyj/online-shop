@@ -1,12 +1,13 @@
-import { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import CustomerBagContext from "../../../../providers/customer-bag-provider/CustomerBagContext";
+import ProductModel from "../../../../models/ProductModel";
 import CustomerProductItem from "../../CustomerProductItem";
 import Styles from "../../Styles";
 
-const OrderItem = () => {
-  const { customerProducts } = useContext(CustomerBagContext);
+export interface OrderItemProps {
+  products: ProductModel[];
+}
 
+const OrderItem = (props: OrderItemProps) => {
   return (
     <>
       <Row>
@@ -34,7 +35,7 @@ const OrderItem = () => {
               sm={2}
               style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
             >
-              Price
+              Price, UAH
             </Col>
             <Col
               className="border"
@@ -48,13 +49,13 @@ const OrderItem = () => {
               sm={3}
               style={{ textAlign: "center", fontSize: 12, fontWeight: "bold" }}
             >
-              Amount
+              Amount, UAH
             </Col>
           </Row>
         </Container>
       </Row>
       <Row>
-        {customerProducts.map((p, i) => {
+        {props.products.map((p, i) => {
           return <CustomerProductItem key={i} product={p} index={i + 1} />;
         })}
       </Row>

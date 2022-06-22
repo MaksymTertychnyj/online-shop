@@ -9,6 +9,7 @@ const NavigationBarStyles = {
 
   bagButton: style({
     width: 35,
+    marginLeft: 20,
   }),
 
   bagPrice: style({
