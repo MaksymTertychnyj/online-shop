@@ -10,6 +10,7 @@ import OrderStatus from "../../models/OrderStatus";
 import Customer from "../../models/user/CustomerModel";
 import AuthManager from "../auth/AuthManager";
 import OrderService from "../../api-service/order-service/OrderService";
+import ProductModel from "../../models/ProductModel";
 
 const CustomerBag = () => {
   const {
@@ -41,6 +42,15 @@ const CustomerBag = () => {
     }
   };
 
+  const getProducts = (): ProductModel[] => {
+    let productsOrder: ProductModel[] = [];
+    for (let productDto of customerProducts) {
+      productsOrder.push(productDto.product);
+    }
+
+    return productsOrder;
+  };
+
   const putItAnOrder = () => {
     let order: OrderModel = {
       dateRegister: new Date(),
@@ -48,7 +58,7 @@ const CustomerBag = () => {
       amount: customerAmount,
       orderAddress: orderAddress,
       customerLogin: user?.login!,
-      products: customerProducts,
+      products: getProducts(),
     };
 
     OrderService.confirmOrder(order)

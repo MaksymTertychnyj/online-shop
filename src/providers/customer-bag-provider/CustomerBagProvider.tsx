@@ -1,11 +1,12 @@
 import { useState } from "react";
 import AddressModel from "../../models/order/Address/AddressModel";
+import { ProductDto } from "../../models/order/ProductDto";
 import ProductModel from "../../models/ProductModel";
 import CustomerBagContext from "./CustomerBagContext";
 
 const CustomerBagProvider = ({ children }: any) => {
   const [customerAmount, setCustomerAmount] = useState(0);
-  const [customerProducts, setCustomerProducts] = useState<ProductModel[]>([]);
+  const [customerProducts, setCustomerProducts] = useState<ProductDto[]>([]);
   const [addressDescription, setAddressDescription] = useState("");
   const [orderAddress, setOrderAddress] = useState<AddressModel>(null);
 
