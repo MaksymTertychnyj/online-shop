@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { Carousel, Container, Row } from "react-bootstrap";
-import CustomerBagContext from "../../../providers/customer-bag-provider/CustomerBagContext";
 import AddressItem from "./carousel-items/AddressItem";
 import OrderItem from "./carousel-items/OrderItem";
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import AddressModel from "../../models/order/Address/AddressModel";
 import { ProductDto } from "../../models/order/ProductDto";
-import ProductModel from "../../models/ProductModel";
 import CustomerBagContext from "./CustomerBagContext";
 
 const CustomerBagProvider = ({ children }: any) => {

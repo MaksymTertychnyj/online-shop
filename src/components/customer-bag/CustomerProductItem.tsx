@@ -21,7 +21,6 @@ const CustomerProductItem = (props: CustomerProductProps) => {
       let q = Number.parseInt(inputQuantity.current.value);
       if (q < 0) {
         inputQuantity.current.value = "0";
-        q = Number.parseInt(inputQuantity.current.value);
       } else {
         if (q > props.product.maxQuantity) {
           inputQuantity.current.value = props.product.maxQuantity.toString();
