@@ -2,7 +2,7 @@ import { RenderProductItemProps } from "./RenderProductItemProps";
 import { Card, Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import ImageService from "../../api-service/imageService/ImageService";
 import TargetTypes from "../../models/TargetTypes";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Styles from "./Styles";
 import DataModel from "../../models/DataModel";
 import CustomerBagContext from "../../providers/customer-bag-provider/CustomerBagContext";
@@ -20,12 +20,15 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
 
     if (prop.product) {
       customerProducts.push({
-        id: prop.product.id,
-        name: prop.product.name,
-        jsonParameters: prop.product.jsonParameters,
-        quantity: 1,
-        price: prop.product.price,
-        categoryId: prop.product.categoryId,
+        product: {
+          id: prop.product.id,
+          name: prop.product.name,
+          jsonParameters: prop.product.jsonParameters,
+          quantity: 1,
+          price: prop.product.price,
+          categoryId: prop.product.categoryId,
+        },
+        maxQuantity: prop.product.quantity,
       });
     }
     setIsAdded(true);
