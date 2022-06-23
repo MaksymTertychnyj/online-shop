@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { Button, Col, Nav, Navbar, NavbarBrand, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Button, Col, Nav, Navbar, Row } from "react-bootstrap";
 import styled from "styled-components";
 import Customer from "../../models/user/CustomerModel";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
-import styled from "styled-components";
+import { Col, Row } from "react-bootstrap";
 import CategoryService from "../../api-service/category-service/CategoryService";
 import CategoryModel from "../../models/CategoryModel";
 import HomeContext from "../../navigation/home/HomeContext";

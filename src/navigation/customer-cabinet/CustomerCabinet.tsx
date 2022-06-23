@@ -1,9 +1,9 @@
-import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
-import { Accordion, Button, Col, Container, Form, Offcanvas, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import OrderService from "../../api-service/order-service/OrderService";
 import AuthManager from "../../components/auth/AuthManager";
 import AvatarBag from "../../components/customer-bag/AvatarBag";
-import CustomerOrderItem from "../../components/customer-order-item/OrderItem";
+import CustomerOrderItem from "../../components/customer-order-item/CustomerOrderItem";
 import OrderModel from "../../models/order/OrderModel";
 import Customer from "../../models/user/CustomerModel";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";

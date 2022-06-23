@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { Button, Form, Modal, ModalBody, ModalTitle } from "react-bootstrap";
+import { Button, Form, Modal, ModalTitle } from "react-bootstrap";
 import LoginService from "../../api-service/login-service/LoginService";
 import { StatusCodes } from "../../constants/StatusCodes";
 import CustomerAuthenticateRequest from "../../models/user/CustomerAuthenticateRequest";

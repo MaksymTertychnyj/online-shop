@@ -1,4 +1,3 @@
-import { userInfo } from "os";
 import { MutableRefObject, useContext, useRef, useState } from "react";
 import { Button, Form, Offcanvas, Row } from "react-bootstrap";
 import LoginService from "../../api-service/login-service/LoginService";
@@ -57,7 +56,7 @@ const ChangeCustomerData = (props: Props) => {
       address: "",
     };
 
-    LoginService.updateCustomer(user).then((res) => {
+    LoginService.updateCustomer(user).then(() => {
       setIsLogged(false);
       AuthManager.signOutAsync();
       props.setShow(false);

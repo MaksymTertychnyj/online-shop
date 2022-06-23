@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ProductModel from "../../models/ProductModel";
 
@@ -9,8 +8,7 @@ export interface OrderProductItemProps {
 
 const OrderProductItem = (props: OrderProductItemProps) => {
   const getSum = (): number => {
-    let sum = props.product!.price * props.product!.quantity;
-    return sum;
+    return props.product!.price * props.product!.quantity;
   };
 
   return (

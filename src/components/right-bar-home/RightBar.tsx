@@ -4,15 +4,7 @@ import HomeContext from "../../navigation/home/HomeContext";
 import Styles from "./Styles";
 
 const RightBar = () => {
-  const {
-    searchPriceTo,
-    setSearchPriceUp,
-    setSearchPriceTo,
-    setSearchName,
-    searchPriceUp,
-    currentProduct,
-    maxPrice,
-  } = useContext(HomeContext);
+  const { setSearchPriceUp, setSearchPriceTo, setSearchName, maxPrice } = useContext(HomeContext);
   const inputUp = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputTo = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputName = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;

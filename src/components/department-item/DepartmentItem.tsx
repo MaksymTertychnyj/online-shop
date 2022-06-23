@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import { Container, Nav } from "react-bootstrap";
-import styled from "styled-components";
 import HomeContext from "../../navigation/home/HomeContext";
 import { DepartmentItemProps } from "./DepartmentItemProps";
 
