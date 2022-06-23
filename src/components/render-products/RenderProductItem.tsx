@@ -20,7 +20,7 @@ const RenderProductItem = (prop: RenderProductItemProps) => {
 
     if (prop.product) {
       customerProducts.push({
-        id: 0,
+        id: prop.product.id,
         name: prop.product.name,
         jsonParameters: prop.product.jsonParameters,
         quantity: 1,
