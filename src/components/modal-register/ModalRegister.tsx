@@ -1,11 +1,8 @@
-import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
-import { Button, Col, Container, Form, FormGroup, Modal, Row } from "react-bootstrap";
+import { MutableRefObject, useContext, useRef, useState } from "react";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
 import { ModalRegisterProps } from "./ModalRegisterProps";
 import Styles from "./Styles";
-import PhoneInput from "react-phone-number-input/input";
-import { formatPhoneNumber, formatPhoneNumberIntl } from "react-phone-number-input";
-import { E164Number } from "libphonenumber-js/core";
 import LoginService from "../../api-service/login-service/LoginService";
 import CustomerModel from "../../models/user/CustomerModel";
 import AuthManager from "../auth/AuthManager";
@@ -17,7 +14,6 @@ const ModalRegister = (props: ModalRegisterProps) => {
   const inputLastName = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputEmail = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputPhoneNumber = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
-  const inputAddress = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputLogin = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputPassword = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
   const inputConfirmPassword = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;

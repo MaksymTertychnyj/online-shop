@@ -1,6 +1,4 @@
 import CategoryModel from "../../models/CategoryModel";
-import DepartmentModel from "../../models/DepartmentModel";
-import APIConfig from "../APIConfig";
 import APIRoutes from "../APIRoutes";
 import ApiService from "../ApiService";
 

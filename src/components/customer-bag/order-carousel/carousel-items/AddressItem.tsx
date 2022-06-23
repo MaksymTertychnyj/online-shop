@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Card, Col, Container, Dropdown, Form, Row } from "react-bootstrap";
+import { Card, Col, Container, Form, Row } from "react-bootstrap";
 import Styles from "../../Styles";
 import Select from "react-select";
 import DropDownStyles from "./DropDownStyles";
@@ -35,9 +35,9 @@ const AddressItem = () => {
 
     setOrderAddress({
       country: "Ukraine",
-      region: currentArea?.value!,
-      city: currentCity?.value!,
-      place: warehouse?.value!,
+      region: currentArea?.label!,
+      city: currentCity?.label!,
+      place: warehouse?.label!,
     });
   };
 
@@ -119,9 +119,9 @@ const AddressItem = () => {
 
   return (
     <>
-      <Row style={{ overflow: "auto" }}>
+      <Row style={{ height: 320, overflow: "auto" }}>
         <Container>
-          <Card border="info" className={Styles.container} style={{ paddingBottom: 10 }}>
+          <Card border="info" className={Styles.container} style={{ paddingBottom: 30 }}>
             <Row style={{ paddingTop: 20, paddingBottom: 20, fontWeight: "bold" }}>Address</Row>
 
             <Form>

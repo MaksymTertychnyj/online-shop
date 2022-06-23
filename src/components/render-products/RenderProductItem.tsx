@@ -1,4 +1,3 @@
-import ProductModel from "../../models/ProductModel";
 import { RenderProductItemProps } from "./RenderProductItemProps";
 import { Card, Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import ImageService from "../../api-service/imageService/ImageService";

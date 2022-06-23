@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import styled from "styled-components";
-import CategoryModel from "../../models/CategoryModel";
 import HomeContext from "../../navigation/home/HomeContext";
 import { CategoryItemProps } from "./CategoryItemProps";
 

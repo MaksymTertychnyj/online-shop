@@ -1,7 +1,6 @@
-import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
-import { Card, CardGroup, Col, Container, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import ProductService from "../../api-service/product-service/ProductService";
-import DepartmentModel from "../../models/DepartmentModel";
 import ProductModel from "../../models/ProductModel";
 import HomeContext from "../../navigation/home/HomeContext";
 import RenderProductItem from "./RenderProductItem";
@@ -15,7 +14,6 @@ const RenderProducts = () => {
     searchPriceUp,
     searchPriceTo,
     setSearchPriceTo,
-    setSearchPriceUp,
     maxPrice,
     setMaxPrice,
   } = useContext(HomeContext);

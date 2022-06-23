@@ -1,10 +1,10 @@
 enum OrderStatus {
-  registered = 0,
-  negotiation = 1,
-  invoiced = 2,
-  paid = 3,
-  shipped = 4,
-  obtained = 5,
+  registered = 1,
+  negotiation = 2,
+  invoiced = 3,
+  paid = 4,
+  shipped = 5,
+  obtained = 6,
 }
 
 export default OrderStatus;

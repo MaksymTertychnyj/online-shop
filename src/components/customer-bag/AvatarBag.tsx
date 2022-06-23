@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import CustomerModel from "../../models/user/CustomerModel";
+import LoginProviderContext from "../../providers/login-provider/LoginProviderContext";
 import AuthManager from "../auth/AuthManager";
 import Styles from "./Styles";
 
 const AvatarBag = () => {
   const [user, setUser] = useState<CustomerModel | null>(null);
+  const { isLogged } = useContext(LoginProviderContext);
 
   useEffect(() => {
     AuthManager.getUser().then((resp) => {
       if (resp) {
         let u: any = JSON.parse(resp);
         setUser(u["customer"]);
+      } else {
+        setUser(null);
       }
     });
-  }, []);
+  }, [isLogged]);
 
   return (
     <Card border="warning" className={Styles.container}>
