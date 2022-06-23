@@ -1,13 +1,12 @@
+import { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import ProductModel from "../../../../models/ProductModel";
+import CustomerBagContext from "../../../../providers/customer-bag-provider/CustomerBagContext";
 import CustomerProductItem from "../../CustomerProductItem";
 import Styles from "../../Styles";
 
-export interface OrderItemProps {
-  products: ProductModel[];
-}
+const OrderItem = () => {
+  const { customerProducts } = useContext(CustomerBagContext);
 
-const OrderItem = (props: OrderItemProps) => {
   return (
     <>
       <Row>
@@ -55,7 +54,8 @@ const OrderItem = (props: OrderItemProps) => {
         </Container>
       </Row>
       <Row>
-        {props.products.map((p, i) => {
+        {customerProducts.map((p, i) => {
+          console.log(p.product);
           return <CustomerProductItem key={i} product={p} index={i + 1} />;
         })}
       </Row>

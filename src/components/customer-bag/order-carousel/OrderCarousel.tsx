@@ -1,12 +1,8 @@
-import { useContext } from "react";
 import { Carousel, Container, Row } from "react-bootstrap";
-import CustomerBagContext from "../../../providers/customer-bag-provider/CustomerBagContext";
 import AddressItem from "./carousel-items/AddressItem";
 import OrderItem from "./carousel-items/OrderItem";
 
 const OrderCarousel = ({ index }: any) => {
-  const { customerProducts } = useContext(CustomerBagContext);
-
   return (
     <>
       <Carousel
@@ -17,7 +13,7 @@ const OrderCarousel = ({ index }: any) => {
       >
         <Carousel.Item>
           <Container>
-            <OrderItem products={customerProducts} />
+            <OrderItem />
           </Container>
         </Carousel.Item>
         <Carousel.Item>
