@@ -1,6 +1,6 @@
 import { MutableRefObject, useContext, useRef, useState } from "react";
 import { Button, Form, Offcanvas, Row } from "react-bootstrap";
-import LoginService from "../../api-service/login-service/LoginService";
+import CustomerService from "../../api-service/customer-service/CustomerService";
 import AuthManager from "../../components/auth/AuthManager";
 import CustomerChangeModel from "../../models/user/CustomerChangeModel";
 import CustomerModel from "../../models/user/CustomerModel";
@@ -56,7 +56,7 @@ const ChangeCustomerData = (props: Props) => {
       address: "",
     };
 
-    LoginService.updateCustomer(user).then(() => {
+    CustomerService.updateCustomer(user).then(() => {
       setIsLogged(false);
       AuthManager.signOutAsync();
       props.setShow(false);

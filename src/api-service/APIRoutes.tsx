@@ -8,6 +8,7 @@ const APIRoutes = {
   getProductUrl: () => APIConfig.URL + "product/",
   getOrderUrl: () => APIConfig.URL + "order/",
   getAddressesUrl: () => APIConfig.URL + "address/",
+  getCustomerUrl: () => APIConfig.URL + "customers/",
 };
 
 export default APIRoutes;
