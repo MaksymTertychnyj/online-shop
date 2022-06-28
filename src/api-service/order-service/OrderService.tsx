@@ -9,7 +9,6 @@ const OrderService = {
     ApiService.get<OrderModel[]>(route + "getByCustomer/" + customerLogin),
   confirmOrder: async (order: OrderModel) => ApiService.post<OrderModel>(route + "add", order),
   deleteOrder: async (orderId: number) => ApiService.delete(route + "delete/" + orderId),
-  updateOrder: async (order: OrderModel) => ApiService.put<OrderModel>(route + "update", order),
 };
 
 export default OrderService;

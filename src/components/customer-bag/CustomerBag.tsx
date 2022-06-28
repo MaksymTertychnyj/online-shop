@@ -54,7 +54,7 @@ const CustomerBag = () => {
   const putItAnOrder = () => {
     let order: OrderModel = {
       dateRegister: new Date(),
-      status: OrderStatus.negotiation,
+      status: OrderStatus.registered,
       amount: customerAmount,
       orderAddress: orderAddress,
       customerLogin: user?.login!,

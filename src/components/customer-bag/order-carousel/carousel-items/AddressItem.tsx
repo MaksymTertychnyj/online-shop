@@ -150,6 +150,7 @@ const AddressItem = () => {
               <Form.Group>
                 <Row>
                   <Col sm={6}>
+                    <br />
                     <Form.Label className={Styles.label}>Place</Form.Label>
                     <Select
                       styles={DropDownStyles}
@@ -162,6 +163,7 @@ const AddressItem = () => {
                     />
                   </Col>
                 </Row>
+                <br />
               </Form.Group>
             </Form>
           </Card>
